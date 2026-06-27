@@ -1,37 +1,50 @@
-name: Release (Windows)
+name: Release
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   release:
+    permissions:
+      contents: write
     runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
-      - name: Setup Rust
+      - name: Rust setup
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Tauri app
-        run: npm run tauri build
-
-      - name: Upload Release
-        uses: softprops/action-gh-release@v2
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
         with:
-          files: |
-            src-tauri/target/release/bundle/**/*.exe
-            src-tauri/target/release/bundle/**/*.msi
+          workspaces: './src-tauri -> target'
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the app
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'VaLock v__VERSION__'
+          releaseBody: 'See the assets to download and install this version.'
+          releaseDraft: true
+          prerelease: false
