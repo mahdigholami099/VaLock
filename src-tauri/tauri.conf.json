@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "valock",
-    "version": "0.1.0"
+    "productName": "VaLock",
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
@@ -24,7 +24,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "mahdi.gholami",
+      "identifier": "com.valock.app",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -40,9 +40,13 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "Valock",
-        "minWidth": 1680,
-        "minHeight": 1050
+        "title": "VaLock",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "decorations": true,
+        "center": true
       }
     ]
   }

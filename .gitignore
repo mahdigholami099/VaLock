@@ -7,10 +7,18 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.npm-cache
+
+# Build outputs
 dist
 dist-ssr
 *.local
+
+# Tauri
+src-tauri/target
+src-tauri/WixTools
 
 # Editor directories and files
 .vscode/*
@@ -23,4 +31,5 @@ dist-ssr
 *.sln
 *.sw?
 
+# Shortcuts
 VaLock.lnk

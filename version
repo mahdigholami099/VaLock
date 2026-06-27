@@ -1,4 +1,4 @@
 {
-    "version": 1,
-    "update_message": "profile added."
+    "version": 2,
+    "update_message": "Native Rust insta-lock engine. No more Python dependency."
 }
